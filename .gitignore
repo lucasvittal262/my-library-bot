@@ -1,3 +1,4 @@
 .env
 helm/my-lib-bot/charts/mongodb-18.6.31.tgz
 helm/my-lib-bot/charts/qdrant-1.17.1.tgz
+*.pyc
