@@ -23,8 +23,6 @@ COPY pyproject.toml ./
 RUN uv pip install --system --no-cache \
     -r pyproject.toml
 
-# Download spacy language model (transformer-based for higher accuracy)
-RUN python -m spacy download en_core_web_trf
 
 # Copy project source code
 COPY . .
@@ -70,7 +68,7 @@ HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
     CMD python3 -c "import sys; sys.exit(0)"
 
 # Container entry point (non-interactive mode)
-ENTRYPOINT ["python3", "run_container.py"]
+ENTRYPOINT ["python3", "src/main.py"]
 
 # Default arguments (can be overridden)
 CMD ["--help"]

@@ -1,0 +1,28 @@
+local-build-deploy:
+	@echo ">>> Building Docker image..."
+	@echo ""
+	docker build . -t lucasvittal/my-lib-bot:$(VERSION)
+	@echo ""
+	@echo ">>> Pushing Docker image..."
+	@echo ""
+	docker push lucasvittal/my-lib-bot:$(VERSION)
+	@echo ""
+	@echo ">>> Uninstalling existing Helm release..."
+	@echo ""
+	helm uninstall my-lib-bot --ignore-not-found
+	@echo ""
+	@echo ">>> Installing Helm chart..."
+	@echo ""
+	helm install my-lib-bot ./helm/my-lib-bot/ -f ./helm/my-lib-bot/values-dev.yaml
+	@echo ""
+	@echo ">>> Enabling ingress..."
+	@echo ""
+	microk8s enable ingress
+	@grep -q "my-lib-bot.local" /etc/hosts || echo "127.0.0.1 my-lib-bot.local" | sudo tee -a /etc/hosts
+	@echo ""
+	@echo ">>> Waiting for ingress controller to be ready..."
+	@echo ""
+	kubectl wait --namespace ingress --for=condition=ready pod --selector=name=nginx-ingress-microk8s --timeout=120s
+	@echo ""
+	@echo ">>> Done! App available at http://my-lib-bot.local"
+	@echo ""

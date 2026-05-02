@@ -3,20 +3,21 @@
 # Declare variables to be passed into your templates.
 mongodb:
   enabled: true
-
+  persistence:
+    enabled: true
+    storageClass: "microk8s-hostpath"
+    size: 8Gi
 qdrant:
   enabled: true
-  
+
 # This will set the replicaset count more information can be found here: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset/
 replicaCount: 2
 
 # This sets the container image more information can be found here: https://kubernetes.io/docs/concepts/containers/images/
 image:
-  repository: nginx
-  # This sets the pull policy for images.
+  repository: lucasvittal/my-lib-bot
   pullPolicy: IfNotPresent
-  # Overrides the image tag whose default is the chart appVersion.
-  tag: ""
+  tag: "0.1.4"
 
 # This is for the secretes for pulling an image from a private repository more information can be found here: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
 imagePullSecrets: []
@@ -63,11 +64,10 @@ service:
 
 # This block is for setting up the ingress for more information can be found here: https://kubernetes.io/docs/concepts/services-networking/ingress/
 ingress:
-  enabled: false
-  className: ""
-  annotations: {}
-    # kubernetes.io/ingress.class: nginx
-    # kubernetes.io/tls-acme: "true"
+  enabled: true
+  className: "nginx"
+  annotations:
+    kubernetes.io/ingress.class: nginx
   hosts:
     - host: my-lib-bot.local
       paths:
