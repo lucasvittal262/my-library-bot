@@ -1,17 +1,10 @@
 from openai import OpenAI
 from config.config import get_configs
-from dataclasses import dataclass, asdict
-from typing import List, Dict, Any
+from models.search import EmbeddingResponse
+
 from abc import ABC, abstractmethod
 
 
-@dataclass
-class EmbeddingResponse:
-    tokens_consumed: int
-    embedding: List[float]
-
-    def to_dict(self) -> Dict[str, Any]:
-        return asdict(self)
 
 
 class EmbeddingService(ABC):
