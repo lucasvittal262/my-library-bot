@@ -76,6 +76,6 @@ class AppConfig(BaseSettings):
 
 
 @lru_cache(maxsize=1)
-def get_config() -> AppConfig:
+def get_configs() -> AppConfig:
     """Return a cached singleton AppConfig. Import and call this everywhere."""
     return AppConfig.load()
