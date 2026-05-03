@@ -104,7 +104,9 @@ def test_hybrid_search_returns_qdrant_output(qdrant_client_mock: Mock) -> None:
 
 
 def test_hybrid_search_uses_collection_name(qdrant_client_mock: Mock) -> None:
-    vector_db = QdrantVectorDB(collection_name="my_collection", url="http://localhost:6333")
+    vector_db = QdrantVectorDB(
+        collection_name="my_collection", url="http://localhost:6333"
+    )
 
     vector_db.get_docs_by_hibrid_search(
         dense_vector_input=[0.1],
