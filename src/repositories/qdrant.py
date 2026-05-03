@@ -1,4 +1,3 @@
-from dataclasses import dataclass, asdict
 from pprint import pprint
 from fastembed import SparseEmbedding
 from qdrant_client import QdrantClient, models
