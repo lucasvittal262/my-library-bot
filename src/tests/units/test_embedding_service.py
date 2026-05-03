@@ -6,7 +6,7 @@ import pytest
 import services.embedding as embedding_module
 from services.embedding import (
     EmbeddingService,
-    OpenAIEmbeddingResponse,
+    EmbeddingResponse,
     OpenAIEmbeddingService,
 )
 
@@ -65,7 +65,7 @@ def test_get_embedding_returns_openai_embedding_response(
 
     response = service.get_embedding("some text")
 
-    assert isinstance(response, OpenAIEmbeddingResponse)
+    assert isinstance(response, EmbeddingResponse)
     assert response.tokens_consumed == 12
     assert response.embedding == [0.4, 0.5, 0.6]
 
@@ -113,4 +113,4 @@ def test_get_embedding_handles_boundary_text_inputs(
         model="text-embedding-3-small",
         input=input_text,
     )
-    assert response == OpenAIEmbeddingResponse(tokens_consumed=1, embedding=[0.9])
+    assert response == EmbeddingResponse(tokens_consumed=1, embedding=[0.9])
