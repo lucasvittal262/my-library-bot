@@ -41,6 +41,8 @@ setup-local-env:
 	@echo ""
 
 run-tests:
+	@$(MAKE) setup-local-env
+	@echo ""
 	@echo "🧪 Running project unit tests..."
 	@echo ""
 	@.venv/bin/python -m pytest src/tests/units
